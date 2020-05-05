@@ -6,7 +6,7 @@ import winsound
 from winsound import *
 import threading
 from threading import Timer
-import turtle
+
 from tkinter import *
 from random import *
 import tkinter.messagebox
@@ -17,7 +17,6 @@ from winsound import PlaySound,SND_ASYNC,Beep
 import threading
 from threading import Timer,Thread
 from time import sleep
-from turtle import *
 wait_seconds = 1
 WinWidth=750
 
