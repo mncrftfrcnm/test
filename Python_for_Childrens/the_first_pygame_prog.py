@@ -1,10 +1,14 @@
-def describe_pet(first_name,last_name,midlle_name=''):
-    if midlle_name:
-        full_name = first_name + ' ' + midlle_name + ' ' + last_name
+
+def dkl(fo):
+    try:
+        with open(fo) as fn:
+            c = fn.read()
+    except FileNotFoundError:
+        pass
     else:
-        full_name = first_name + ' ' + last_name
-    return full_name.title()
-musican = describe_pet('vova','pishicov')
-print(musican)
-musican = describe_pet('vova','pishicov','nicolaewich')
-print(musican)
+        w = c.split()
+        nm = len(w)
+        print(nm)
+fw = ['fgfg.txt','snow2.txt','snow22.txt']
+for f in fw:
+    dkl(f)

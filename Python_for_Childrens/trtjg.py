@@ -95,6 +95,7 @@ def uuu(event):
 
 
 
+
 def sr(event):
     global colline
     colline="red"
