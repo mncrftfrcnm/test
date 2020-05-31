@@ -1,6 +1,8 @@
 from tkinter import*
 from random import *
+import turtle
 from turtle import *
+t = Turtle()
 w = Tk()
 rightPressed = 0
 tytu = 0
@@ -8,7 +10,10 @@ leftPressed = 0
 fj = randint(0,1)
 rt = []
 sco = 0
+screen = Screen()
+t = Turtle()
 fj = randint(0,28)
+
 if fj == 0:
     rt.append("Left")
 
@@ -142,7 +147,7 @@ def op(event):
 
 
     if event.keysym == "Left" and rt[tytu] == "Left": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -152,7 +157,7 @@ def op(event):
         sco = sco + 1    
         print(rt[tytu])
     elif event.keysym == "Right" and rt[tytu] == "Right":
-        
+        t.forward(10)
         sco = sco + 1
         rightPressed = 0
         print("cool")
@@ -163,7 +168,7 @@ def op(event):
 
 
     elif event.keysym == "Up" and rt[tytu] == "Up": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -174,7 +179,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "Down" and rt[tytu] == "Down":
-        
+        t.forward(10)
 
         leftPressed = 0
         print("cool")
@@ -184,7 +189,7 @@ def op(event):
         sco = sco + 1
         print(rt[tytu])
     elif event.keysym == "Q" and rt[tytu] == "Q": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -195,7 +200,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "W" and rt[tytu] == "W": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -206,7 +211,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "E" and rt[tytu] == "E": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -217,7 +222,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "R" and rt[tytu] == "R": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -228,7 +233,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "T" and rt[tytu] == "T": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -240,7 +245,7 @@ def op(event):
 
 
     elif event.keysym == "Y" and rt[tytu] == "Y": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -251,7 +256,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "U" and rt[tytu] == "U": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -263,7 +268,7 @@ def op(event):
 
 
     elif event.keysym == "I" and rt[tytu] == "I": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -284,7 +289,7 @@ def op(event):
 
 
     elif event.keysym == "O" and rt[tytu] == "O": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -308,7 +313,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "A" and rt[tytu] == "A": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -321,7 +326,7 @@ def op(event):
 
 
     elif event.keysym == "S" and rt[tytu] == "S": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -333,7 +338,7 @@ def op(event):
 
 
     elif event.keysym == "D" and rt[tytu] == "D": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -346,7 +351,7 @@ def op(event):
 
 
     elif event.keysym == "F" and rt[tytu] == "F": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -357,7 +362,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "G" and rt[tytu] == "G": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -369,7 +374,7 @@ def op(event):
 
 
     elif event.keysym == "H" and rt[tytu] == "H": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -382,7 +387,7 @@ def op(event):
 
 
     elif event.keysym == "J" and rt[tytu] == "J": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -400,7 +405,7 @@ def op(event):
 
 
     elif event.keysym == "K" and rt[tytu] == "K": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -411,7 +416,7 @@ def op(event):
         print(rt[tytu])
 
     elif event.keysym == "L" and rt[tytu] == "L": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -423,7 +428,7 @@ def op(event):
 
 
     elif event.keysym == "Z" and rt[tytu] == "Z": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -436,7 +441,7 @@ def op(event):
 
 
     elif event.keysym == "X" and rt[tytu] == "X": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -456,7 +461,7 @@ def op(event):
 
 
     elif event.keysym == "C" and rt[tytu] == "C": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -468,7 +473,7 @@ def op(event):
 
 
     elif event.keysym == "V" and rt[tytu] == "V": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -481,7 +486,7 @@ def op(event):
 
 
     elif event.keysym == "B" and rt[tytu] == "B": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -493,7 +498,7 @@ def op(event):
 
 
     elif event.keysym == "N" and rt[tytu] == "N": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -506,7 +511,7 @@ def op(event):
 
 
     elif event.keysym == "M" and rt[tytu] == "M": 
-
+        t.forward(10)
         leftPressed = 0
         print("cool")
         
@@ -522,9 +527,10 @@ def op(event):
 
 
     else:
-        print("you lose")
-        print("your score is ",sco)        
-        w.destroy()
+        t.forward(-10)
+#        print("you lose")
+#        print("your score is ",sco)        
+#        w.destroy()
 # def on_key_release(event):
 #     global leftPressed,rightPressed,tytu
 #     if event.keysym == "Left" and rt[tytu] == "Left":

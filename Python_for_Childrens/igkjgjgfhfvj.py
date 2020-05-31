@@ -6,7 +6,8 @@ import winsound
 from winsound import PlaySound,SND_ASYNC
 import threading
 from threading import Timer
-
+from random import *
+import random
 canvasWidth = 750
 canvasHeight = 500
 w = tkinter.Tk()
@@ -23,7 +24,7 @@ wait_seconds=1
 ballMoveX = 0
 ballMoveY = 0
 ischanged=False
-
+batSpeed = 6
 def main_loop():
     global ballMoveX, ballMoveY, ballsize, ischanged
     global ballMoveX,ballMoveY, score, bounceCount,batSpeed,ballsize,ballsizecheck
@@ -64,28 +65,34 @@ def ChangeBallSize():
     if ballsizecheck==False:
         print(ballsize)
         ballsizecheck=True
-        ballsize=-ballsize-2
+        ballsize=ballsize+10
         ischanged=False
     else:
         print(ballsize)
         ballsizecheck=False
-        ballsize=ballsize-2
+        ballsize=ballsize+10
         ischanged=False
 
 def op(event):
-    global leftPressed,rightPressed
+    global leftPressed,rightPressed,score,batSpeed
     if event.keysym == "Left":
         leftPressed = 1
     elif event.keysym == "Right":
         rightPressed = 1
-
+    elif event.keysym == "v":
+        tre = int(input("you can upgrate your speed from 1: "))
+        if tre <= score:
+            batSpeed = batSpeed + tre
+            score = score - tre
+        else:
+            print("you cant do it")
 def on_key_release(event):
     global leftPressed,rightPressed
     if event.keysym == "Left":
         leftPressed = 0
     if event.keysym == "Right":
         rightPressed = 0
-batSpeed = 6
+
 
 def move_bat():
     batMove = batSpeed*rightPressed - batSpeed*leftPressed
@@ -115,8 +122,15 @@ def move_ball():
         #Ball bounced to bat
         if (ballMoveX > 0 and (ballRight + ballMoveX > batLeft and ballLeft < batRight) 
         or ballMoveX < 0 and (ballRight > batLeft and ballLeft + ballMoveX < batRight)):
-            PlaySound("sounds/Windows Critical Stop.wav", SND_ASYNC)            
+            PlaySound("sounds/Windows Critical Stop.wav", SND_ASYNC)
+            clr = randint(0x0,0xFFFFFF)
             
+            clrtxt = str(hex(clr))
+            clrname = clrtxt.replace('0x','#')
+                
+            while len(clrname) != 7:
+                clrname = clrname.replace('#','#0')            
+            c.config(background=clrname)
             ballMoveY = -ballMoveY
             score = score +1
             bounceCount = bounceCount+ 1
@@ -124,11 +138,11 @@ def move_ball():
             batfill='#%02X%02X%02X' % (randfill(),randfill(),randfill())
             c.itemconfig(bat,fill=batfill)
         ###################################
-            if bounceCount == 1:                
-#                ballsize = ballsize + 100
+            if bounceCount == 3:                
+                ballsize = ballsize + 3
                 bounceCount = 0
                 ChangeBallSize()
-                batSpeed = batSpeed+2
+                batSpeed = batSpeed+3
                 ranfill=lambda: random.randint(100,255)
                 ballfill='#%02X%02X%02X' % (ranfill(),ranfill(),ranfill())
                 c.itemconfig(ball,outline=ballfill)
