@@ -14,7 +14,7 @@ from time import sleep
 s = Screen()
 t1 = Pen()
 t1.pu()
-t1.shapesize(120)
+t1.shapesize(5)
 t1.ondrag(t1.goto)
 t4 = Pen()
 t4.pu()

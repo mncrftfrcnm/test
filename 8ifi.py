@@ -20,7 +20,7 @@ t4 = Pen()
 t4.pu()
 t4.goto(-300,300)
 t4.pd()
-h = 700
+h = 1
 y = 0
 class beeper2(threading.Thread):
     def run(self):
@@ -32,7 +32,7 @@ class beeper2(threading.Thread):
                 y = y+1
                 if y >= 1:
                     t18 = Pen()
-                    t18.speed(6)
+                    t18.speed(1)
                     t18.pu()
                     t18.hideturtle()
                     t18.goto(300,300)
@@ -40,7 +40,7 @@ class beeper2(threading.Thread):
                     t18.goto(0,0)
                     t18.hideturtle()
                     h = h-y
-                    h = h - 100
+#                    h = h - 100
                     if h <= 0:
                         print("game over") 
                     
