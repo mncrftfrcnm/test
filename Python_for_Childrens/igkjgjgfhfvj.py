@@ -122,7 +122,7 @@ def move_ball():
         #Ball bounced to bat
         if (ballMoveX > 0 and (ballRight + ballMoveX > batLeft and ballLeft < batRight) 
         or ballMoveX < 0 and (ballRight > batLeft and ballLeft + ballMoveX < batRight)):
-            PlaySound("sounds/Windows Critical Stop.wav", SND_ASYNC)
+           # PlaySound("sounds/Windows Critical Stop.wav", SND_ASYNC)
             clr = randint(0x0,0xFFFFFF)
             
             clrtxt = str(hex(clr))

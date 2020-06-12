@@ -21,7 +21,10 @@ while True:
 
     for element in massive:
         element = tkinter.Tk()
+
     y = y+3
+    print(element)
     mainloop()
+
     print("level ",l, "complited")
     l = l + 1

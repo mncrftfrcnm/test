@@ -13,16 +13,16 @@ from time import sleep
 wait_seconds = 1
 WinWidth=750
 
-class beeper(threading.Thread):
-    def run(self):
-        self.keeprunning = True
-        while self.keeprunning:
-            first = randint(37,32000)
-            second = randint(100,1000)
-            PlaySound("C:\windows\media\Ring02.wav",False)
+# class beeper(threading.Thread):
+#     def run(self):
+#         self.keeprunning = True
+#         while self.keeprunning:
+#             first = randint(37,32000)
+#             second = randint(100,1000)
+#             PlaySound("C:\windows\media\Ring02.wav",False)
             
-beep  = beeper()
-beep.start()
+# beep  = beeper()
+# beep.start()
 
 wo = True
 ballsizecheck = True

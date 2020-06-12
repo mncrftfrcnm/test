@@ -10,36 +10,30 @@ from threading import Timer,Thread
 from time import sleep
 import turtle
 from turtle import *
-from PIL import Image 
-
-wait_seconds = 1
-WinWidth=750
-screen = Screen()
+from PIL import Image
 t = Turtle()
+t.pu()
 t2 = Turtle()
-t2.hideturtle()
-t2.color("white")
-t2.forward(-10)
-t2.pensize(10)
-def r():
-    t.right(10)
-    t2.forward(10)
-    t2.right(10)
-listen()
-screen.onkey(r,"Right")
-
-#screen.onkeypress(r,"Right")
+t2.pu()
+t3 = Turtle()
+t.pu()
+t4 = Turtle()
+t.pu()
+t5 = Turtle()
+t.pu()
+t6 = Turtle()
+t.pu()
 while True:
     t.forward(10)
-    t2.forward(10)
-#    t2.forward(-10)
-
-
-
-
-
-
-
-
-
-
+    t.right(10)
+    t2.forward(1)
+    t2.right(1)
+    t3.forward(10)
+    t3.right(100)
+    t4.forward(90)
+    t4.right(90)
+    t5.forward(90)
+    t5.right(350)
+    t6.forward(100)
+    t6.right(235)
+    
