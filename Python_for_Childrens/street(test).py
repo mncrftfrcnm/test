@@ -12,6 +12,7 @@ import turtle
 from turtle import *
 import sys
 from PIL import Image
+from se import *
 q = Screen()
 t = Turtle()
 listen()

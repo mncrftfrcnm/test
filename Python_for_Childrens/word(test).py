@@ -7,9 +7,16 @@ from pygame.sprite import Group
 from random import *
 
 import time
+words = []
+i = input('')
+for word in i:
+    words.append(word)
+
 images = ['cat1.gif','fire.gif','tree.gif']
-class Button():
+class Button(Sprite):
+
     def __init__(self,ai_settings,screen,msg):
+        super(Button,self).__init__()
         self.screen = screen
         self.screen_rect = screen.get_rect()
         self.width,self.heght = 200,50
@@ -23,12 +30,14 @@ class Button():
     def prep_msg(self,msg):
         self.msg_image = self.font.render(msg,True,self.text_color,self.button_color)
         self.msg_image_rect = self.msg_image.get_rect()
-        self.msg_image_rect.center = self.rect.center
+   #     self.msg_image_rect.center = self.rect.center
     def draw_button(self):
-        self.screen.fill(self.button_color, self.rect)
+        
         self.screen.blit(self.msg_image, self.msg_image_rect)
-            
-
+    def update(self):
+        self.rect.y+=1
+        self.msg_image_rect.y+=1
+        
 def chek_fleet_duraction(ai_settings,aliens):
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
@@ -309,6 +318,8 @@ def run_game():
     
     ai_settings =Settings()
     stats = GameStats(ai_settings)
+    buttons = Group()
+    buttons2 = Group()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption('Alien Invasion')
     ship = Ship(ai_settings,screen)
@@ -326,6 +337,16 @@ def run_game():
     number_rows = get_number_rows(ai_settings,ship.rect.height,alien.rect.height)
     alien.y = -90
     tre = 0
+    x = 0
+    for word in words:
+        button = Button(ai_settings,screen,word)
+        buttons.add(button)
+    for button in buttons.sprites():
+
+        button.rect.x = x*400
+        button.rect.y = -x*button.heght
+        x+=1
+        
     alien.rect.y = alien.y
     for row_number in range(number_rows):
         for alien_number in range(number_aliens_x):
@@ -357,7 +378,12 @@ def run_game():
 
         if stats.game_active == True:
             if tre == 1:
+
                 break
+
+
+                
+
             
                 
                 #    print(alien.rect.y)
@@ -410,67 +436,26 @@ def run_game():
                         ship.movin_right = False
                     if event.key == pygame.K_LEFT:
                         ship.movin_left = False
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    mouse_x,mouse_y = pygame.mouse.get_pos()
-                    if ship.rect.collidepoint(mouse_x,mouse_y):
-                        ship.image = pygame.image.load(choice(images))
-            bullets.update()
 
-            ship.update()
-
-            aliens.update()
-
-            ship.blitme()
-
-            alienbullets.update(bullets,aliens)
-            alienbullets.update(bullets,aliens)
-            aliens.draw(screen)
-            ship.blitme()
-        
-            for bullet in bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    bullets.remove(bullet)
             
             screen.fill(ai_settings.bg_color)
-        for bullet in bullets.sprites():
-            bullet.draw_bullet()
-            first = randint(0,200)
-            second = randint(0,200)
-            three = randint(0,200)
-            ai_settings.bullet_color = (0,0,0)
-            
-            collisions = pygame.sprite.groupcollide(bullets,aliens,bullets_die,True)
-            if collisions:
-                stats.score += 1
-                scoreboard.prep_score()
-        #        print(scoreboard.score_image)
-            if len(aliens) ==  0:
-                bullets.empty()
-                for row_number in range(number_rows):
-                    for alien_number in range(number_aliens_x):
-                                
-                            
-                            
-                            #    print(alien.rect.y)
-                            
-                        create_alien(ai_settings,screen,aliens,alien_number,row_number)
-                ai_settings.increase_speed()
+        for bullet in buttons2.sprites():
+            bullet.draw_button()
+        pygame.display.flip()
+        for bullet in buttons.copy():
+            if bullet.rect.bottom >= 200 and bullet.msg_image_rect.bottom >= 200:
+                buttons.remove(bullet)
+                buttons2.add(bullet)
 
-        ship.blitme()
-    
-        bullets.update()
-        
-        aliens.draw(screen)
-        chek_fleet_edges(ai_settings,aliens)
+            
+            screen.fill(ai_settings.bg_color)
+        for bullet in buttons.sprites():
+            bullet.draw_button()
+
         if pygame.sprite.spritecollideany(ship,aliens):
             ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
-
-        aliens.draw(screen)
+        buttons.update()
         pygame.display.flip()
-        scoreboard.show_score()
-        
-     
-        pygame.display.flip()
- 
+    
 while True:
     run_game()
