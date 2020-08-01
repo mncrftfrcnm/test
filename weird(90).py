@@ -11,7 +11,7 @@ from time import sleep
 import turtle
 from turtle import *
 import sys
-from PIL import Image
+#from PIL import Image
 q = Screen()
 t = Turtle()
 t.speed(1)

@@ -3,40 +3,7 @@ import sys
 from pygame.sprite import Sprite
 from pygame.sprite import Group
 from random import *
-patrons = 200
-def chek_fleet_duraction(ai_settings,aliens):
-    for alien in aliens.sprites():
-        alien.rect.y += ai_settings.fleet_drop_speed
-    ai_settings.fleet_direction *= -1
-    ai_settings.alien_speed_factor += 0.01
 
-def chek_fleet_edges(ai_settings,aliens):
-    for alien in aliens.sprites():
-        if alien.chek_edges():
-            chek_fleet_duraction(ai_settings,aliens)
-            break
-        
-
-bullets_die = True
-
-def get_number_rows(ai_settings,ship_height,alien_height):
-    available_spase_y = ((ai_settings.screen_height - 4*alien_height) - ship_height)
-    number_rows = int(available_spase_y / (3*alien_height))
-    return number_rows
-def create_alien(ai_settings,screen,aliens,alien_number,row_number):
-    alien = Alien(ai_settings,screen)
-
-    alien_width = alien.rect.width
-    available_spase_x = ai_settings.screen_width - 2*alien_width
-    number_aliens_x = int(available_spase_x / (2*alien_width))
-    alien.x = randint(0,300)
-    alien.rect.x = alien.x
- #   alien_width = alien.rect.width
-    
-    alien.y = randint(0,300)
-    alien.rect.y = alien.y
-    aliens.add(alien)
-    print(alien.x,alien.y)
 def create_piano(ai_settings,ships,screen):
     for x in range(20):
         ship = Ship(ai_settings,screen)
@@ -100,9 +67,12 @@ class Ship(Sprite):
     def blitme(self):
         pygame.draw.rect(self.screen,self.color,self.rect)
 class Alien(Sprite):
-    def __init__(self,ai_settings,screen):
+    def __init__(self,ai_settings,screen,ship):
         super(Alien, self).__init__()
+        self.ship =ship 
         self.color = (0,0,0)
+        self.plus_y = randint(5,200)
+        self.plus_x = randint(5,200)
         self.ai_settings = ai_settings
         self.screen = screen
         
@@ -129,7 +99,8 @@ class Alien(Sprite):
     def update(self):
 
 
-        self.x +=0
+        self.rect.x = self.ship.rect.x+plus_x
+        self.rect.y = self.ship.rect.y+plus_y
 
         
 class Blocks(Sprite):
@@ -257,10 +228,10 @@ def run_game():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_x,mouse_y = pygame.mouse.get_pos()
-                for alien in ships.sprites():
-                    if alien.rect.collidepoint(mouse_x,mouse_y):
-                        new_bullet = Bullet(ai_settings,screen,alien,mouse_x,mouse_y)
-                        bullets.add(new_bullet)
+                for ship in ships.sprites():
+                    ship.rect.x = mouse_x
+                    ship.rect.y = mouse_y
+                    
 
         ships.update()
         

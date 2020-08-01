@@ -10,7 +10,6 @@ from threading import Timer,Thread
 from time import sleep
 import turtle
 from turtle import *
-from PIL import Image 
 
 wait_seconds = 1
 WinWidth=750
