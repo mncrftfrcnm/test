@@ -21,8 +21,9 @@ def ret():
     t.left(1)
    # t2.right(1)
 def ret2():
-    t.left(-1)
-  #  t2.right(-1)
+    t.right(1)
+  #  
+  #t2.right(-1)
 def h():
     t.forward(1)
 #   t2.forward(1)

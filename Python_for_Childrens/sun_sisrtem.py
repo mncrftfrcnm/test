@@ -1,0 +1,35 @@
+from turtle import *
+turtles = []
+Screen().setup(1800,1400)
+
+sun = Turtle()
+turtles.append(sun)
+sun.pu()
+earth = Turtle()
+earth.pu()
+
+uranus = Turtle()
+uranus.pu()
+suturn = Turtle()
+suturn.pu()
+jupiter = Turtle()
+jupiter.pu()
+mars = Turtle()
+mars.pu()
+mercuri = Turtle()
+mercuri.pu()
+venus = Turtle()
+venus.pu()
+mercuri.forward(100)
+venus.forward(200)
+earth.forward(300)
+mars.forward(400)
+jupiter.forward(500)
+suturn.forward(600)
+uranus.forward(600)
+turtles.append(earth)
+turtles.append(earth)
+while True:
+    mercuri.circle(-200)
+mainloop()
+#while True:

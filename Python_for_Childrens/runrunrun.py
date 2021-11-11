@@ -11,8 +11,6 @@ from time import sleep
 import turtle
 from turtle import *
 import sys
-from PIL import Image
-from se import *
 q = Screen()
 t = Turtle()
 t.pu()

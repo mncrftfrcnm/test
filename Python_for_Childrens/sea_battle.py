@@ -99,7 +99,7 @@ class Alien(Sprite):
         self.screen = screen
         
 
-        self.image = pygame.image.load("fire.gif")
+        self.image = pygame.image.load("nothing.gif")
         self.rect = self.image.get_rect()
 
         

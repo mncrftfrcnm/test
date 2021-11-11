@@ -144,7 +144,6 @@ while wert == False:
         print(retw)
 
 
-    if trar == "26":
 
         
     if trar == "False":

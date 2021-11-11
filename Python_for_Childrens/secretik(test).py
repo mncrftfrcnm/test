@@ -19,7 +19,7 @@ tr = 1
 rt = 1
 t4 = 0
 t = Pen()
-t.speed(1)
+t.speed(0)
 t.pu()
 t4 = Pen()
 t4.speed(0)

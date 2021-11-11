@@ -20,7 +20,8 @@ def chek_fleet_duraction(ai_settings,aliens):
 def chek_fleet_edges(ai_settings,aliens):
     for alien in aliens.sprites():
         if alien.chek_edges():
-            chek_fleet_duraction(ai_settings,aliens)
+            print('p')
+#            chek_fleet_duraction(ai_settings,aliens)
             break
 
 
@@ -334,7 +335,19 @@ def run_game():
             collisions = pygame.sprite.groupcollide(bullets,aliens,bullets_die,True)
         collisions = pygame.sprite.groupcollide(bullets,aliens,bullets_die,True)
         aliens.update()
-        
+                                  
+
+
+
+
+
+
+
+
+
+
+
+                                  
         ship.blitme()
         aliens.update()
         aliens.draw(screen)

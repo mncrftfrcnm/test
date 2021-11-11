@@ -85,8 +85,82 @@ else:
         def draw_bullet(self):
             
             self.screen.blit(self.image,self.rect)
+    class Button(Sprite):
+        def __init__(self,ai_settings,screen,ship,aliens,bullets,alien):
+            super(Button, self).__init__()
+            self.screen = screen
+            self.ai_settings = ai_settings
+            randdom = randint(0,1)
             
-        
+            if randdom == 0:
+                self.image = pygame.image.load("leave.gif")
+            if randdom == 1:
+                self.image = pygame.image.load("branch.gif")
+            self.rect = self.image.get_rect()
+            self.alien_rect = alien.image.get_rect()
+            self.aliens = aliens
+            self.bullets = bullets
+            
+            self.alien_rect.centerx = self.alien_rect.centerx
+            self.alien_rect.bottom = self.alien_rect.bottom
+            self.rect.centerx = ship.rect.centerx
+            self.rect.top = ship.rect.top
+            self.rect.bottom = self.rect.bottom
+            self.y = float(self.rect.y)
+            self.x = float(self.rect.x)
+            self.alien_rect.y = float(self.alien_rect.y)
+            self.alien_rect.x = float(self.alien_rect.x)
+
+            self.color = ai_settings.bullet_color
+            self.speed_factor = ai_settings.bullet_speed_factor
+            
+
+        def update(self,bullets,aliens):
+            global ch
+            global ch
+            pass
+        def draw_bullet(self):
+            
+            self.screen.blit(self.image,self.rect)
+    class But(Sprite):
+        def __init__(self,ai_settings,screen,ship,aliens,bullets,alien):
+            super(But, self).__init__()
+            self.screen = screen
+            self.ai_settings = ai_settings
+            randdom = randint(0,1)
+            
+            if randdom == 0:
+                self.image = pygame.image.load("leave.gif")
+            if randdom == 1:
+                self.image = pygame.image.load("branch.gif")
+            self.rect = self.image.get_rect()
+            self.alien_rect = alien.image.get_rect()
+            self.aliens = aliens
+            self.bullets = bullets
+            
+            self.alien_rect.centerx = self.alien_rect.centerx
+            self.alien_rect.bottom = self.alien_rect.bottom
+            self.rect.centerx = ship.rect.centerx
+            self.rect.top = ship.rect.top
+            self.rect.bottom = self.rect.bottom
+            self.y = float(self.rect.y)
+            self.x = float(self.rect.x)
+            self.alien_rect.y = float(self.alien_rect.y)
+            self.alien_rect.x = float(self.alien_rect.x)
+
+            self.color = ai_settings.bullet_color
+            self.speed_factor = ai_settings.bullet_speed_factor
+            
+
+        def update(self,bullets,aliens):
+            global ch
+            global ch
+            self.y-= 1
+            self.rect.y = self.y
+        def draw_bullet(self):
+            
+            self.screen.blit(self.image,self.rect)
+            
     class Ship():
         def __init__(self,ai_settings,screen):
             self.screen = screen
@@ -104,7 +178,6 @@ else:
             self.rect.bottom = self.screen_rect.bottom
             self.senter = float(self.rect.centerx)
             self.movin_down = False
-            self.movin_up = False
                 
             self.screen_rect = screen.get_rect()
             self.rect.centerx = self.screen_rect.centerx
@@ -119,15 +192,12 @@ else:
             if self.movin_left and self.rect.left > 0:
                 #self.rect.centerx -= 1
                 self.senter -= self.ai_settings.ship_speed_factor
-            if self.movin_up:
-                self.rect.bottom -= 1
-            if self.movin_down:
-                self.rect.bottom += 1
+
             self.rect.centerx = self.senter
         def blitme(self):
             self.screen.blit(self.image,self.rect)
     class Alien(Sprite):
-        def __init__(self,ai_settings,screen,alienBullets,alienBullet):
+        def __init__(self,ai_settings,screen,alienets,alienBullet):
             super(Alien, self).__init__()
             self.ai_settings = ai_settings
             self.screen = screen
@@ -195,22 +265,36 @@ else:
         screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
         pygame.display.set_caption('Alien Invasion')
         ship = Ship(ai_settings,screen)
+        
         bullets = Group()
         aliens = Group()
 
         alienbullets = Group()
-        run = 0
+        run = 1
         alien = Alien(ai_settings,screen,alienBullet,alienbullets)
 
         bg_color = (20,250,200)
+        but = Button(ai_settings,screen,ship,aliens,bullets,alien)
+        #bullets.add(but)
+        but.rect.x = 0
+        but.rect.y = 0
+        
+        but2 = Button(ai_settings,screen,ship,aliens,bullets,alien)
+        
+        but2.rect.x = 0
+        solds = Group()
+        but2.rect.y = 200
+        but2.image = pygame.image.load('tree.gif') 
+        it = 0
+        
         while True:
-            if run == 1:
+        
 
-                tre = randint(-700,100)
-                if tre == 0:
-                    alien = Alien(ai_settings,screen,alienbullets,alienBullet)
-                    aliens.add(alien)
-                    alien.rect.x = randint(0,ai_settings.screen_width-30)
+            tre = randint(50,100)
+            if tre == 71:
+                alien = Alien(ai_settings,screen,alienbullets,alienBullet)
+                aliens.add(alien)
+                alien.rect.x = randint(0,ai_settings.screen_width-30)
 
 
             for event in pygame.event.get():
@@ -244,10 +328,26 @@ else:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x,y = pygame.mouse.get_pos()
-                    bullet = Bullet(ai_settings,screen,ship,aliens,bullets,alien)
-                    bullets.add(bullet)
-                    bullet.rect.x = x
-                    bullet.rect.y = y
+                    if but2.rect.collidepoint(x,y):
+                        it = 0
+                    elif but.rect.collidepoint(x,y):
+                        it = 1
+                    else:
+
+                        if it == 1:
+                            x,y = pygame.mouse.get_pos()
+                            bullet = Bullet(ai_settings,screen,ship,aliens,bullets,alien)
+                            solds.add(bullet)
+                            bullet.rect.x = x
+                            bullet.rect.y = y
+                            bullet.image = pygame.image.load('tree.gif')
+                            #print(bullet.image)
+                        if it == 0:
+                            x,y = pygame.mouse.get_pos()
+                            bullet = Bullet(ai_settings,screen,ship,aliens,bullets,alien)
+                            bullets.add(bullet)
+                            bullet.rect.x = x
+                            bullet.rect.y = y
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_RIGHT:
                         ship.movin_right = False               
@@ -287,9 +387,15 @@ else:
                 three = randint(0,200)
                 ai_settings.bullet_color = (first,second,three)
             bullets.update(bullets,aliens)
+         
             #pygame.display.flip()
 
-            ert = randint(-10,90)
+            ert = randint(-100,100)
+            if ert == 0:
+                for al in solds.sprites():
+                    ut = But(ai_settings,screen,al,aliens,bullets,alien)
+                    bullets.add(ut)
+
 
 
 
@@ -302,6 +408,9 @@ else:
             ship.blitme()
             aliens.draw(screen)
             bullets.draw(screen)
+            solds.draw(screen)
+            but2.draw_bullet()
+            but.draw_bullet()
             alienbullets.update(bullets,aliens)
             pygame.display.flip()
     
