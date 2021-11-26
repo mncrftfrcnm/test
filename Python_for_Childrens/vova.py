@@ -1,5 +1,6 @@
 from level4 import *
 from level1 import *
+import  level1
 from level2 import *
 from level3 import *
 import level5 
@@ -8,15 +9,10 @@ import pygame
 import getpass
 import time
 import level6
+run_game_4()
+level5.run_game()
 
-
-
-
-
-
-
-
-run_game()
+level1.run_game()
 
 
 

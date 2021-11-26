@@ -1,3 +1,6 @@
+from numpy import true_divide
+
+
 try:
     import pygame
     import time
@@ -243,7 +246,7 @@ else:
             self.screen.blit(self.image,self.rect)
     class Alien(Sprite):
         def __init__(self,ai_settings,screen):
-            super(Alien_what_go_left_and_right, self).__init__()
+            super(Alien, self).__init__()
             self.ai_settings = ai_settings
             self.screen = screen
             n = randint(1,4)
@@ -274,10 +277,11 @@ else:
                 return True
             
         def update(self):
+            pass
 
 
-            self.x += self.duraction
-            self.rect.x = self.x
+     #       self.x += self.duraction
+      #      self.rect.x = self.x
     class Alien_what_go_left_and_right(Sprite):
         def __init__(self,ai_settings,screen):
             super(Alien_what_go_left_and_right, self).__init__()
@@ -539,6 +543,16 @@ else:
         do_liberint(pygame,Block,blocks,ai_settings,screen,'liberint.txt',Alien_what_go_up_and_down,aliens,poweraps)
         aiens = Group()
         ant = Ant_men(ai_settings,screen,ship)
+        pistol = Alien(ai_settings,screen)
+        pistol.image = pygame.image.load('supercat.gif')
+        pistol.rect.x = 228
+        pistol.rect.y = 171
+        pistol.x = 228
+        pistol.y = 171
+        
+        #blocks.add(pistol)
+        guns = Group()
+        guns.add(pistol)
         ships.add(ship)
         shoot.play(-1)
         gun = 0
@@ -546,27 +560,33 @@ else:
         money = 0
         un = 0
         opi = 0
+        
         ipo = 1
         tre = 0
         ships2 = Group()
+        
         while True:
 
-            sb.show_score()
-            
-            rand = randint(-1000,1000)
-            
-            
+            if pygame.sprite.spritecollideany(pistol,ships):
+                gun = 1
+            if pygame.sprite.spritecollideany(ship,guns):
+                gun = 1
             if j == True and i == 0:
                 
                 ert = 0
 #                ship.y -= 1*pfg
-
+                for alien in guns.sprites():
+                    alien.y += pfg
+                    alien.rect.y = alien.y
                 for alien in blocks.sprites():
                     alien.y += pfg
                     alien.rect.y = alien.y
                 if pygame.sprite.spritecollideany(ship,blocks):
                     for alien in blocks.sprites():
                         alien.y += pfg*-1
+                        alien.rect.y = alien.y
+                    for alien in guns.sprites():
+                        alien.y += pfg
                         alien.rect.y = alien.y
                 # #for alien in poweraps.sprites():
                 # ant.y += pfg
@@ -587,6 +607,9 @@ else:
             if j == False and godown == 0:
                 for alien in blocks.sprites():
                     alien.y -= 1
+                    alien.rect.y = alien.y
+                for alien in guns.sprites():
+                    alien.y -= 1
                     alien.rect.y = alien.y      
                 ant.y-=1            #     #updatenow = 1
             #     for alien in aliens.sprites():
@@ -594,6 +617,9 @@ else:
             #         alien.rect.x = alien.x
             if pygame.sprite.spritecollideany(ship,blocks):
                 for alien in blocks.sprites():
+                    alien.y += 1
+                    alien.rect.y = alien.y
+                for alien in guns.sprites():
                     alien.y += 1
                     alien.rect.y = alien.y
             if r == 0:
@@ -606,8 +632,15 @@ else:
                     
                     alien.x -= 1
                     alien.rect.x = alien.x
+                for alien in guns.sprites():
+                    
+                    alien.x -= 1
+                    alien.rect.x = alien.x
                 if pygame.sprite.spritecollideany(ship,blocks):
                     for alien in blocks.sprites():
+                        alien.x += 1
+                        alien.rect.x = alien.x
+                    for alien in guns.sprites():
                         alien.x += 1
                         alien.rect.x = alien.x
                 #pygame.display.flip()
@@ -634,8 +667,16 @@ else:
                     
                     alien.x += 1
                     alien.rect.x = alien.x
+                for alien in guns.sprites():
+                    
+                    alien.x += 1
+                    alien.rect.x = alien.x
                 if pygame.sprite.spritecollideany(ship,blocks):
                     for alien in blocks.sprites():
+                        alien.x -= 1
+                        alien.rect.x = alien.x
+                        
+                    for alien in guns.sprites():
                         alien.x -= 1
                         alien.rect.x = alien.x
                 #pygame.display.flip()
@@ -661,7 +702,7 @@ else:
                 #         alien.x -= 1
                 #         alien.rect.x = alien.x
 
-
+            
 
 
             for event in pygame.event.get():
@@ -792,9 +833,27 @@ else:
                         #buttons = joystick.get_numbuttons()
                     button = joystick.get_button(False)
              
+                if event.type == pygame.K_KP_ENTER:
                     
+                    mouse_x,mouse_y = pygame.mouse.get_pos()
+                    alien = Alien_what_go_up_and_down(ai_settings,screen)
+                    alien.x = mouse_x
+                    alien.rect.x = mouse_x
+                    alien.y = mouse_y
+                    alien.rect.y = mouse_y
+                    aliens.add(alien)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+
+                    
+                        mouse_x,mouse_y = pygame.mouse.get_pos()
+                        alien = Alien_what_go_left_and_right(ai_settings,screen)
+                        alien.x = mouse_x
+                        alien.rect.x = mouse_x
+                        alien.y = mouse_y
+                        alien.rect.y = mouse_y
+                        aliens.add(alien)
                 if event.type == pygame.KEYDOWN:
-                
+    
                     if event.key == pygame.K_LEFT:
 
                         l = 0
@@ -802,51 +861,65 @@ else:
                         cu = 1
                         cd = 1
                         t = 3
-                    if event.key == pygame.K_a:
-                      if tre >= 100:      
-                        tre = 0
-                        for k in range(10):
-                            collisions = pygame.sprite.groupcollide(ships,aliens,False,True)
+                    # if event.key == pygame.K_a:
+                    #   if tre >= 100:      
+                    #     tre = 0
+                    #     for k in range(100):
+                    #         collisions = pygame.sprite.groupcollide(ships,aliens,False,True)
 
-                            screen.fill(ai_settings.bg_color)
-                            ships2.draw(screen)
-                            if l == 0:
+                    #         screen.fill(ai_settings.bg_color)
+                    #         ships2.draw(screen)
+                    #         if l == 0:
 
 
-                                #pygame.display.flip()
-                                collisions = pygame.sprite.groupcollide(ships,aliens,False,True)                                            
-                                for alien in blocks.sprites():
+                    #             #pygame.display.flip()
+                    #             collisions = pygame.sprite.groupcollide(ships,aliens,False,True)                                            
+                    #             for alien in blocks.sprites():
                                     
-                                    alien.x += 10
-                                    alien.rect.x = alien.x
-                                collisions = pygame.sprite.groupcollide(ships,aliens,False,True)
-                                if pygame.sprite.spritecollideany(ship,blocks):
-                                    if alien in aliens.sprites():
-                                        aliens.remove(alien)
-                                        blocks.remove(alien)
-                                        break
-                                    for alien in blocks.sprites():
-                                        alien.x -= 10
-                                        alien.rect.x = alien.x
+                    #                 alien.x += 1
+                    #                 alien.rect.x = alien.x
+                    #             collisions = pygame.sprite.groupcollide(ships,aliens,False,True)
+                    #             if pygame.sprite.spritecollideany(ship,blocks):
+                    #                 if alien in aliens.sprites():
+                    #                     aliens.remove(alien)
+                    #                     blocks.remove(alien)
+                    #                     break
+                    #                 for alien in blocks.sprites():
+                    #                     alien.x -= 1
+                    #                     alien.rect.x = alien.x
 
-                                    break
-                            if r == 0:
+                    #                 break
+                    #         if r == 0:
     
 
-                                #pygame.display.flip()
+                    #             #pygame.display.flip()
+                    #             for k in range(100):
+                    #                 collisions = pygame.sprite.groupcollide(ships,aliens,False,True)
+
+                    #                 screen.fill(ai_settings.bg_color)
+                    #                 ships2.draw(screen)
+                    #                 if r == 0:
+
+
+                    #                     #pygame.display.flip()
+                    #                     collisions = pygame.sprite.groupcollide(ships,aliens,False,True)                                            
+                    #                     for alien in blocks.sprites():
                                             
-                                for alien in blocks.sprites():
-                                    
-                                    alien.x -= 10
-                                    alien.rect.x = alien.x
-                                collisions = pygame.sprite.groupcollide(ships,aliens,False,True)
-                                if pygame.sprite.spritecollideany(ship,blocks):
-                                    for alien in blocks.sprites():
-                                        alien.x += 10
-                                        alien.rect.x = alien.x
-                                
-                            ship.blitme()
-                        ships2.empty()
+                    #                         alien.x += 1
+                    #                         alien.rect.x = alien.x
+                    #                     collisions = pygame.sprite.groupcollide(ships,aliens,False,True)
+                    #                     if pygame.sprite.spritecollideany(ship,blocks):
+                    #                         if alien in aliens.sprites():
+                    #                             aliens.remove(alien)
+                    #                             blocks.remove(alien)
+                    #                             break
+                    #                         for alien in blocks.sprites():
+                    #                             alien.x -= 1
+                    #                             alien.rect.x = alien.x
+
+                    #                         break
+#                            ship.blitme()
+ #                       ships2.empty()
 
 
 
@@ -876,7 +949,7 @@ else:
 
                 
                     if event.key == pygame.K_v:
-                        if gun == gun:
+                        if gun == 1:
 
                             new_bullet = Bullet(ai_settings,screen,ship,aliens,bullets,alien,t)
                             bullets.add(new_bullet)
@@ -916,7 +989,11 @@ else:
         
             bullets.update(bullets,aliens)
             collisions = pygame.sprite.groupcollide(bullets,aliens,True,True)
+            collisions = pygame.sprite.groupcollide(ships,guns,True,True)
+            print(ships.sprites(),guns.sprites(),collisions)
             
+            if collisions:
+                gun = 1
                           #print('you lose')
             #break
             ship.blitme()
@@ -953,6 +1030,8 @@ else:
             #     ai_settings.bullet_color = (first,second,three)
             #     collisins = pygame.sprite.groupcollide(blocks,bullets,True,True)
             collisions = pygame.sprite.groupcollide(ships,poweraps,False,True)
+            collisions = pygame.sprite.groupcollide(ships,aliens,True,True)
+            
 
             
                 
@@ -992,6 +1071,7 @@ else:
 
             blocks.draw(screen)
             blocks.update()
+            
             if pygame.sprite.spritecollideany(ant,ships):
                 if pfg == -1:
                     g = 1
@@ -1012,6 +1092,16 @@ else:
                         print('you lose')
                         sys.exit()
                 
+            if pygame.sprite.spritecollideany(ship,aliens):
+                ch -= 1
+                bullets.empty()
+                if ch == ch:
+
+                    print('you lose')
+                    break
+            
+
+
             if pygame.sprite.spritecollideany(ant,bullets):
                 ch -= 1
                 bullets.empty()
@@ -1036,7 +1126,6 @@ else:
             if r == 0:     
             
                 ship.image = pygame.image.load('SCright.gif')
-   
                 pygame.display.flip()
                 ship.blitme()
 
@@ -1066,6 +1155,7 @@ else:
                 if pygame.sprite.spritecollideany(alien,blocks):
                     alien.duraction *=-1
                 blocks.add(alien)
+            guns.draw(screen)
             pygame.display.flip()
 
 

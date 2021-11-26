@@ -890,8 +890,8 @@ else:
             print(len(aliens),len(alienbullets))
 
             pygame.display.flip()
-
-
+sys.exit()
+run_game_2()
 
 import pygame
 import cv2

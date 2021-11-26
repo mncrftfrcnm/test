@@ -916,7 +916,7 @@ if 1 == 1:
             collision = pygame.sprite.groupcollide(htbullets,aliens,True,True)
             pygame.display.flip()
 
-
+run_game_4()
 
 
 

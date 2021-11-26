@@ -610,7 +610,7 @@ else:
 
         # shoot = mixer.Sound("C:\windows\media\Ring02.wav")
         # #C:\windows\downloads\
-        timer = 5
+        timer = 0
         while True:
             pygame.time.wait(timer)
             screen.fill(ai_settings.bg_color)
@@ -732,10 +732,10 @@ else:
                         innothing.add(nothingi)
                     print(event_type)
                     if event_type == 'right_sr':
-                        if timer == 5:
+                        if timer == 0:
                             timer = 50
                         else:
-                            timer = 5
+                            timer = 0
             for event_type, status in joycon2.events():
                 if status == 1:
                     if event_type == 'up':
