@@ -176,6 +176,7 @@ def run_game():
     number_aliens_x = int(available_spase_x / (2*alien_width))
     number_rows = get_number_rows(ai_settings,ship.rect.height,alien.rect.height)
     alien.y = -90
+    ty = 0
     alien.rect.y = alien.y
     
     for alien_number in range(number_aliens_x):
@@ -191,6 +192,8 @@ def run_game():
     bg_color = (20,250,200)
     while True:
         pygame.mouse.set_visible(True)
+        if ty == 1:
+            break
         
                 
             
@@ -248,6 +251,7 @@ def run_game():
                         print(len(aliens))
                         if len(aliens) < 1:
                             print('you win')
+                            ty = 1
                             break
         ship.update()
         bullets.update()
@@ -282,5 +286,4 @@ def run_game():
         if pygame.sprite.spritecollideany(ship,aliens):
             pass
         pygame.display.flip()
-while True:
-    run_game()
+run_game()
