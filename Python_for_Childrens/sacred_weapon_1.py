@@ -122,9 +122,9 @@ else:
             self.t = t
             self.screen = screen
             self.ai_settings = ai_settings
-            randdom = randint(0,1)
+            randdom = randint(2,9)
             
-            if randdom <= 4:
+            if randdom <= 9:
                 self.image = pygame.image.load("leave.gif")
             if randdom <= 1:
                 self.image = pygame.image.load("BG.gif")
