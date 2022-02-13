@@ -40,7 +40,7 @@ try:
     # (joycon_id)
 
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((1200, 800))
 
     #pink joycon right (1406, 8199, '9458cbb41938')
     #blue joycon left   
@@ -91,9 +91,9 @@ else:
     class Settings():
 
         def __init__(self):
-            self.screen_width = 1200
+            self.screen_width = 2000
             self.bullet_speed_factor = 5
-            self.screen_height = 800
+            self.screen_height = 1000
             self.bg_color = (20,250,200)
             self.ship_speed_factor = 1
             self.bullet_color = 50,50,50
@@ -531,7 +531,7 @@ else:
         for joystick in joysticks:
             joystick.init()
         ai_settings =Settings()
-        screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
+        screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption('Alien Invasion')
         ship = Ship(ai_settings,screen)
         ship2 = Ship(ai_settings,screen)
@@ -563,7 +563,7 @@ else:
         bezero = 0
         die_blocks = Group()
         tr = '[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,0,0,0,0,0,0,1,4,0,3,3,3,0,7,0,1,1,1,1,2,1,0,0,0,0,0,0,1,4,7,6,3,0,0,1,0,0,0,0,0,1,2,1,0,0,1,0,0,0,1,4,4,3,3,0,1,0,0,1,0,0,1,2,1,0,0,1,1,1,0,1,1,1,1,1,1,0,0,0,7,7,6,0,1,2,1,0,0,1,0,0,4,1,0,0,0,1,0,0,0,0,1,0,0,1,2,1,0,0,0,0,0,4,1,0,7,6,6,0,1,0,3,0,4,3,0,0,1,2,1,0,4,0,7,7,4,0,0,0,3,1,0,3,0,0,0,0,0,1,2,1,0,4,1,7,7,4,1,4,4,0,1,1,1,1,1,1,0,4,1,2,1,3,4,3,1,7,7,1,1,7,7,7,7,7,7,7,0,0,0,1,2,1,3,4,3,1,7,7,7,7,6,7,7,7,6,7,7,7,7,0,0,0,1,2,1,3,4,3,1,1,7,7,1,1,1,1,1,7,7,7,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1'
-        filename = 'liberint.txt'
+        filename = 'level1.txt'
 #        t = []
 
 
@@ -638,6 +638,7 @@ else:
                 ship.rect.y += 3
                 if pygame.sprite.spritecollideany(ship,blocks):
                     ship.rect.y -= 3
+                    print('kgkgfkg')
                 t=1
             elif isstickmove[0] < 1000:
                 #ship.x -= 3
@@ -730,7 +731,7 @@ else:
                         nothingi.rect.x,nothingi.rect.y = ship.rect.x,ship.rect.y
                         blocks.add(nothingi)
                         innothing.add(nothingi)
-                    print(event_type)
+                    #(event_type)
                     if event_type == 'right_sr':
                         if timer == 0:
                             timer = 50
@@ -824,13 +825,13 @@ else:
 
                     alien.t = randint(0,3)
             if pygame.sprite.spritecollideany(ship,aliens):
-                shoot.stop()
-                shoot = pygame.mixer.Sound('27 - Game Over.mp3')
-                shoot.play(-1)
-                aliens.clear()
-                alienbullets.clear()
-                pygame.quit()
-                run_game()
+                # shoot.stop()
+                # shoot = pygame.mixer.Sound('27 - Game Over.mp3')
+                # shoot.play(-1)
+                # aliens.clear()
+                # alienbullets.clear()
+                # pygame.quit()
+                # run_game()
                 sys.exit()
             if pygame.sprite.spritecollideany(ship2,aliens):
                 shoot.stop()
@@ -856,7 +857,7 @@ else:
                 pygame.quit()
                 
                 run_game()
-            print(len(aliens),len(alienbullets))
+            #(len(aliens),len(alienbullets))
             if len(aliens) <= 0:
                 shoot.stop()
                 

@@ -34,7 +34,33 @@ try:
     t2 = 0
 
     bulets = 0
-
+    class warrior(Sprite):
+        def __init__(self,ai_settings,screen):
+            super(warrior, self).__init__()
+            
+            self.t = 0
+            self.screen = screen
+            self.speed_factor = 3
+            self.ai_settings = ai_settings
+            randdom = randint(0,1)
+            self.image = pygame.image.load("warrior.gif")
+            self.rect = self.image.get_rect()
+            self.x = self.rect.x
+            self.y = self.rect.y             
+        def update(self):
+            if self.t == 0:
+                self.y -= self.speed_factor
+                self.rect.y = self.y
+                
+            if self.t == 1:
+                self.y += self.speed_factor
+                self.rect.y = self.y
+            if self.t == 2:
+                self.x += self.speed_factor
+                self.rect.x = self.x
+            if self.t == 3:
+                self.x -= self.speed_factor
+                self.rect.x = self.x
     class Scoreboard():
         def __init__(self,ai_settings,screen,stats,bg):
             self.screen = screen
@@ -88,11 +114,11 @@ try:
             
             for x in range(6):
                 block = Block(ai_settings,screen,x*(ai_settings.screen_width/5),y*(ai_settings.screen_height/5))
-                print(block.rect.x)
+                #(block.rect.x)
                 blocks.add(block)
                 x += 1
         
-                #print(len(blocks))
+                ##(len(blocks))
 
 
 except ConnectionRefusedError:
@@ -121,7 +147,7 @@ else:
             self.t = t
             self.screen = screen
             self.ai_settings = ai_settings
-            randdom = randint(0,1)
+            randdom = randint(0,0)
             
             if randdom == 0:
                 self.image = pygame.image.load("leave.gif")
@@ -130,6 +156,7 @@ else:
             self.rect = self.image.get_rect()
             self.aliens = aliens
             self.bullets = bullets
+            self.count = 20
             
 
             self.rect.centerx = ship.rect.centerx
@@ -159,11 +186,23 @@ else:
             if self.t == 3:
                 self.x -= self.speed_factor
                 self.rect.x = self.x
+            self.count -= 1
                 
         def draw_bullet(self):
             
             self.screen.blit(self.image,self.rect)
-            
+
+
+
+
+
+
+
+
+
+
+
+
     class Block(Sprite):
         def __init__(self,ai_settings,screen,non):
             super(Block, self).__init__()
@@ -172,7 +211,7 @@ else:
             self.alienBullet = alienBullet
             
 
-            self.image = pygame.image.load("block.gif")
+            self.image = pygame.image.load(non)
             self.rect = self.image.get_rect()
 
             
@@ -229,14 +268,15 @@ else:
                 self.rect.centerx = self.senter
                 if pygame.sprite.spritecollideany(ship,blocks):
                     if self.canr == False:
-                        print('ouch right')
+                        #('ouch right')
+                        pass
             if self.movin_left and self.rect.left > 0:
                 #self.rect.centerx -= 1
                 self.senter -= self.ai_settings.ship_speed_factor
                 self.rect.centerx = self.senter
                 if pygame.sprite.spritecollideany(ship,blocks):
                     if self.canr == False:
-                        print('ouch left')
+                        pass
             if self.movin_up:
                 self.rect.bottom -= 1
             if self.movin_down:
@@ -310,9 +350,9 @@ else:
         def chek_edges(self):
             screen_rect = self.screen.get_rect()
             if self.rect.right >= screen_rect.right:
-                return True
+                return False
             if self.rect.left <= 0:
-                return True
+                return False
             
         def update(self):
 
@@ -345,9 +385,9 @@ else:
         def chek_edges(self):
             screen_rect = self.screen.get_rect()
             if self.rect.right >= screen_rect.right:
-                return True
+                return False
             if self.rect.left <= 0:
-                return True
+                return False
             
         def update(self):
 
@@ -382,7 +422,7 @@ else:
         def chek_edges(self):
             if self.f >= 500:
                 return True
-                print("P")
+                #("P")
             if self.f <= 0:
                 return True
 
@@ -487,10 +527,11 @@ else:
       
 #    def run_game():
     def run_game():
+    
         global ch,dobollet,db,wea,t
         pygame.init()
         pygame.mixer.init()
-        shoot = mixer.Sound('01 intro.mp3')
+        shoot = mixer.Sound('19 - GTR Attack!.mp3')
         music = mixer.Sound("sounds/Windows Critical Stop.wav")
         image = pygame.image.load('bg.gif') 
         
@@ -502,7 +543,7 @@ else:
         fg = 1
         pfg = 1
         joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
-        print(len(joysticks))
+        #(len(joysticks))
         for joystick in joysticks:
             joystick.init()
         i = 0
@@ -540,7 +581,7 @@ else:
         jkd = Group()
         aliens = Group()
         poweraps = Group()
-        do_liberint(pygame,Block,blocks,ai_settings,screen,'liberint.txt',Alien_what_go_up_and_down,aliens,poweraps)
+        do_liberint(pygame,Block,blocks,ai_settings,screen,'liberint.txt',Alien_what_go_up_and_down,Alien_what_go_left_and_right,aliens,poweraps)
         aiens = Group()
         ant = Ant_men(ai_settings,screen,ship)
         pistol = Alien(ai_settings,screen)
@@ -553,9 +594,10 @@ else:
         #blocks.add(pistol)
         guns = Group()
         guns.add(pistol)
+        timeka = 0
         ships.add(ship)
         shoot.play(-1)
-        gun = 0
+        gun = 1
         time = 0
         money = 0
         un = 0
@@ -564,18 +606,48 @@ else:
         ipo = 1
         tre = 0
         ships2 = Group()
+        power = 0
+        spee = 20
+        jumper = 130
+        ppfg = pfg
+        sg = 0
+        cg = 0
+        matreshka = 0
         
-        while True:
-            if len(aliens) <= 0:
-                import sea_battle
-                import 
+        for powerap in poweraps.sprites():
+            blocks.add(powerap)
+        matre = input('do you want to switch to peaceful mode?(y/n): ')
+        if matre == 'y':
+            matreshka = 1
+            
 
-            if pygame.sprite.spritecollideany(pistol,ships):
-                gun = 1
+        while True:
+            timeka+=1
+            # #(len(poweraps))
+            # if len(aliens) <= 0:
+            #     import sea_battle
+            #     import 
+
+
             if pygame.sprite.spritecollideany(ship,guns):
                 gun = 1
+            collisions = pygame.sprite.groupcollide(ships,poweraps,True,True)
+            if collisions:
+                power += 1
+                print(power)
             if j == True and i == 0:
-                
+                    
+
+
+                if pygame.sprite.spritecollideany(ship, blocks):
+                    #(pfg)
+                    #('kkkkkk')
+                    
+                    if pfg == -1:
+                        #('lkkkl')
+                        j = False
+                        #(j)
+                        i = 0
                 ert = 0
 #                ship.y -= 1*pfg
                 for alien in guns.sprites():
@@ -591,21 +663,27 @@ else:
                     for alien in guns.sprites():
                         alien.y += pfg*-1
                         alien.rect.y = alien.y
+                    if pfg == -1:
+                        pfg = 1    
+                        fg = 0
+                        j = False
+
+                
                 # #for alien in poweraps.sprites():
                 # ant.y += pfg
                 # ant.rect.y = ant.y
 
 
                 fg += 1*pfg
-                #print(ship.y)
+                ##(ship.y)
 #                ship.rect.y = ship.y
-                if fg == 190:
+                if fg == jumper:
                     pfg*=-1
                 if fg == 0:
-                    i = 0
+
                     pfg*=-1
                     j = False
-                
+                #(pfg)
                 scr = screen.get_rect()
             if j == False and godown == 0:
                 for alien in blocks.sprites():
@@ -633,18 +711,18 @@ else:
                                
                 for alien in blocks.sprites():
                     
-                    alien.x -= 1
+                    alien.x -= spee
                     alien.rect.x = alien.x
                 for alien in guns.sprites():
                     
-                    alien.x -= 1
+                    alien.x -= spee
                     alien.rect.x = alien.x
                 if pygame.sprite.spritecollideany(ship,blocks):
                     for alien in blocks.sprites():
-                        alien.x += 1
+                        alien.x += spee
                         alien.rect.x = alien.x
                     for alien in guns.sprites():
-                        alien.x += 1
+                        alien.x += spee
                         alien.rect.x = alien.x
                 #pygame.display.flip()
                 #pygame.display.flip()
@@ -668,19 +746,19 @@ else:
                                
                 for alien in blocks.sprites():
                     
-                    alien.x += 1
+                    alien.x += spee
                     alien.rect.x = alien.x
                 for alien in guns.sprites():
                     
-                    alien.x += 1
+                    alien.x += spee
                     alien.rect.x = alien.x
                 if pygame.sprite.spritecollideany(ship,blocks):
                     for alien in blocks.sprites():
-                        alien.x -= 1
+                        alien.x -= spee
                         alien.rect.x = alien.x
                         
                     for alien in guns.sprites():
-                        alien.x -= 1
+                        alien.x -= spee
                         alien.rect.x = alien.x
                 #pygame.display.flip()
 
@@ -814,7 +892,7 @@ else:
     
                 if event.type == pygame.JOYBUTTONDOWN:
                     button = joystick.get_button(True)
-                    # print(button)  
+                    # #(button)  
                     #pass
                     if button == 1:
                         music.play()
@@ -949,12 +1027,95 @@ else:
                     if event.key == pygame.K_UP:
 
                         j = True
+                    if event.key == pygame.K_i:
+                        if matreshka == 0:
+                            matreshka = 1
+                        else:
+                            matreshka = 0
+                    if event.key == pygame.K_b:
+                        print(l,r)
+                        if cg <= 150:
+                            if timeka >= 150:
+                                timeka = 0
+                                for x in range(100):
+                                    if l == 0:
+                        
 
-                
+                                    #pygame.display.flip()
+                                                
+                                        for alien in blocks.sprites():
+                                        
+                                            alien.x += spee
+                                            alien.rect.x = alien.x
+                                        for alien in guns.sprites():
+                                        
+                                            alien.x += spee
+                                            alien.rect.x = alien.x
+                                        if pygame.sprite.spritecollideany(ship,blocks):
+                                            for alien in blocks.sprites():
+                                                alien.x -= spee
+                                                alien.rect.x = alien.x
+                                            
+                                            for alien in guns.sprites():
+                                                alien.x -= spee
+                                                alien.rect.x = alien.x
+                                    if r == 0:
+                                
+
+                                            #pygame.display.flip()
+                                                        
+                                        for alien in blocks.sprites():
+                                                
+                                            alien.x -= spee
+                                            alien.rect.x = alien.x
+                                        for alien in guns.sprites():
+                                                
+                                            alien.x -= spee
+                                            alien.rect.x = alien.x
+                                        if pygame.sprite.spritecollideany(ship,blocks):
+                                            for alien in blocks.sprites():
+                                                alien.x += spee
+                                                alien.rect.x = alien.x
+                                                    
+                                            for alien in guns.sprites():
+                                                alien.x += spee
+                                                alien.rect.x = alien.x
+                    if event.key == pygame.K_1:
+                        if sg >= 10:
+                            sg = 0
+                            if gun == 1:
+                                for x in range(10):
+                                    new_bullet = Bullet(ai_settings,screen,ship,aliens,bullets,alien,t)
+                                    #(t)
+                                    new_bullet2 = Bullet(ai_settings,screen,ship,aliens,bullets,alien,t)
+                                    new_bullet3 = Bullet(ai_settings,screen,ship,aliens,bullets,alien,t)
+                                    new_bullet2.rect.y -= 20
+                                    new_bullet3.rect.y += 0
+                                    if t == 2:
+                                        #('k')
+                                        new_bullet.x+=x*50
+                                        new_bullet2.x+=x*50
+                                        new_bullet3.x+=x*50
+                                    if t == 3:
+                                        new_bullet.x-=x*50
+                                        new_bullet2.x-=x*50
+                                        new_bullet3.x-=x*50
+                                    bullets.add(new_bullet)
+                                    # bullets.add(new_bullet2)
+                                    # bullets.add(new_bullet3)
                     if event.key == pygame.K_v:
                         if gun == 1:
 
                             new_bullet = Bullet(ai_settings,screen,ship,aliens,bullets,alien,t)
+                            #(t)
+                            if t == 2:
+                                #('k')
+                                new_bullet.x+=50
+                            if t == 3:
+                                #('k')
+                                new_bullet.x-=50
+
+                                        
                             bullets.add(new_bullet)
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_RIGHT:
@@ -992,12 +1153,22 @@ else:
         
             bullets.update(bullets,aliens)
             collisions = pygame.sprite.groupcollide(bullets,aliens,True,True)
+            if collisions:
+                if len(aliens) <= 0:
+                    print('ll')
+                cg += 1
+                if cg >= 10:
+                    print('pp[')
+                    spee = 3
+                    jumper = 290
+                sg += 1
             collisions = pygame.sprite.groupcollide(ships,guns,True,True)
-            print(ships.sprites(),guns.sprites(),collisions)
+
+            #(ships.sprites(),guns.sprites(),collisions)
             
             if collisions:
                 gun = 1
-                          #print('you lose')
+                          ##('you lose')
             #break
             ship.blitme()
 
@@ -1065,16 +1236,14 @@ else:
             bullets.draw(screen)
             sb.show_score()
             alienbullets.update(bullets,aliens)
-
-            aliens.draw(screen)
+            if matreshka == 0:
+                aliens.draw(screen)
         
 
             
             #if un == 0:
 
-            blocks.draw(screen)
-            blocks.update()
-            
+            blocks.draw(screen)            
             if pygame.sprite.spritecollideany(ant,ships):
                 if pfg == -1:
                     g = 1
@@ -1083,7 +1252,7 @@ else:
                     bullets.empty()
                     if ch <= 0:
 
-                        print('you win')
+                        #('you win')
                         break
                     un = 1
                     j = False
@@ -1092,7 +1261,7 @@ else:
                     j = True
                 else:
                     if un == 0:
-                        print('you lose')
+                        #('you lose')
                         sys.exit()
                 
             if pygame.sprite.spritecollideany(ship,aliens):
@@ -1100,7 +1269,7 @@ else:
                 bullets.empty()
                 if ch == ch:
 
-                    print('you lose')
+                    #('you lose')
                     break
             
 
@@ -1110,7 +1279,7 @@ else:
                 bullets.empty()
                 if ch <= 0:
 
-                    print('you win')
+                    #('you win')
                     break
             
             #if bezero == 34:
@@ -1133,25 +1302,28 @@ else:
                 ship.blitme()
 
             aliens.draw(screen)
-            pygame.time.wait(1)
+            pygame.time.wait(0)
             opi += ipo
             tre += 0.5
-            if opi == 10000:
+            if opi == 1000:
                 ipo *= -1
-                shoot.stop()
-                shoot = mixer.Sound('07 - Metal man.mp3')
+                # shoot.stop()
+                # shoot = mixer.Sound('07 - Metal man.mp3')
                 ai_settings.bg_color = (50,50,50)
-                shoot.play()
+                # shoot.play()
 
             if opi == 0:
                 ipo = 1
                 shoot.stop()
-                shoot = mixer.Sound('01 intro.mp3')
+                shoot = mixer.Sound('19 - GTR Attack!.mp3')
                 shoot.play()
                 ai_settings.bg_color = (220,220,220)
                 tre += 1
-            print(opi)
-            aliens.update()
+            #(opi)
+            if ipo == 1 and matreshka == 0:
+                blocks.update()
+                blocks.update()
+                blocks.update()
             aliens.draw(screen)
             for alien in aliens.sprites():
                 blocks.remove(alien)
@@ -1159,6 +1331,11 @@ else:
                     alien.duraction *=-1
                 blocks.add(alien)
             guns.draw(screen)
+            poweraps.draw(screen)
+
+            for bullet in bullets.sprites():
+                if bullet.count <= 0:
+                    bullets.remove(bullet)
             pygame.display.flip()
 
 

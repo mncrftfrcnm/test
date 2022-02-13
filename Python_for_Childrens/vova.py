@@ -9,8 +9,6 @@ import pygame
 import getpass
 import time
 import level6
-run_game_4()
-level5.run_game()
 
 level1.run_game()
 

@@ -1,0 +1,4 @@
+import csv
+filename = 'sitka_weather.csv'
+with open(filename) as f:
+    reader = csv.reader(f)

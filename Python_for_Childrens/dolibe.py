@@ -7,7 +7,7 @@ t = []
 images = ['treesmall.gif','bushsmall.gif']
 #[1,1,1,1,0,0,0,0,1,1,1,1,2,0,0,0,0,1,1,1,1,0,0,1,1,1,1,2,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,2,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,2]
 x,y = 0,0
-def do_liberint(pygame,Block,blocks,ai_settings,screen,liberint,mega,aliens,poweraps):
+def do_liberint(pygame, Block, blocks, ai_settings, screen, liberint, mega, aliens, guns=0, Alien=0):
     global x,y
 
     x,y = 0,0
@@ -53,10 +53,19 @@ def do_liberint(pygame,Block,blocks,ai_settings,screen,liberint,mega,aliens,powe
             aliens.add(block)
             x+=58
         elif yu == '4':
-            block = mega(ai_settings,screen)
+            block = mega(ai_settings, screen)
             block.rect.x = x
             block.rect.y = y
             block.x = x
             block.y = y
-            poweraps.add(block)
+            aliens.add(block)
             x+=58
+        elif yu == '5':
+            block = Alien(ai_settings, screen)
+            block.rect.x = x
+            block.rect.y = y
+            block.x = x
+            block.y = y
+            guns.add(block)
+            x+=58
+            
