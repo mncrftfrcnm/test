@@ -14,7 +14,7 @@ obj_filename = rc.resources.obj_primitives
 obj_reader = rc.WavefrontReader(obj_filename)
 
 # Create Mesh
-cube = obj_reader.get_mesh("c")
+cube = obj_reader.get_mesh("cube")
 cube.position.xyz = 0, 0, -3
 
 tex = rc.Texture.from_image(rc.resources.img_uvgrid)                                                                                                                                        

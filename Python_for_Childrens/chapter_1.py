@@ -650,19 +650,29 @@ else:
         patrons = 10
         gun = 1
         bazooka = 0
+        break_down = 0
         sniper = 0
         while True:
             perezriadka += 1
             pygame.time.wait(5)
-
+            if break_down >= 1:
+                break
             timeka+=1
             # #(len(poweraps))
             # if len(aliens) <= 0:
             #     import sea_battle
             #     import 
 
-
-
+            if score >= 100:
+                print('you win')
+                shoot.stop()
+                shoot = mixer.Sound('17 Item Acquisition Fanfare.mp3')
+                shoot.play(-1)
+                while True:
+                    tre = input('break?(y n):')
+                    if tre == 'y':
+                        break_down = 1
+                        break
             for gun2 in guns.sprites():
                 gun2.mon = randint(0,2000)
                 if gun2.mon == 0:
