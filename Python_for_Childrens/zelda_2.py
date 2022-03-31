@@ -583,7 +583,7 @@ else:
         aliens = Group()
         poweraps = Group()
         guns = Group()
-        do_liberint(pygame,Block,blocks,ai_settings,screen,'level1.txt',Alien_what_go_up_and_down, Alien_what_go_left_and_right,aliens, guns, Alien)
+        do_liberint(pygame,Block,blocks,ai_settings,screen,'liberint.txt',Alien_what_go_up_and_down, Alien_what_go_left_and_right,aliens, guns, Alien)
         aiens = Group()
         ant = Ant_men(ai_settings,screen,ship)
         pistol = Alien(ai_settings,screen)
@@ -619,13 +619,14 @@ else:
         
         for powerap in poweraps.sprites():
             blocks.add(powerap)
-        matre = input('do you want to switch to peaceful mode?(y/n): ')
-        if matre == 'y':
-            aliens.empty()
+        # matre = input('do you want to switch to peaceful mode?(y/n): ')
+        # if matre == 'y':
+        #     aliens.empty()
             
         rod_2 = 0
         sg = 300
         while True:
+            pygame.time.wait(5)
             timeka+=1
             # #(len(poweraps))
             # if len(aliens) <= 0:

@@ -8,7 +8,7 @@ t = []
 images = ['treesmall.gif','bushsmall.gif']
 #[1,1,1,1,0,0,0,0,1,1,1,1,2,0,0,0,0,1,1,1,1,0,0,1,1,1,1,2,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,2,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,2]
 x,y,z = 0,0,0
-def do_liberint(liberint, blocks):
+def do_liberint(liberint, blocks, xs, ys, zs):
     global x,y,z
 
     x,y = 0,0
@@ -26,6 +26,9 @@ def do_liberint(liberint, blocks):
             x -= 0.9
         if yu == '1':
             blocks.append(sphere(pos=vector(x,y,z), color=color.cyan, size=.4*vector(3,3,3)))
+            xs.append(x)
+            ys.append(y)
+            zs.append(z)
         if yu == '2':
             x = 0
             y -= 0.9
